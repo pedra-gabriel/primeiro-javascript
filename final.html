@@ -1,0 +1,363 @@
+<html>
+<meta charset="utf-8">
+
+<script>
+
+
+
+
+
+</script>
+
+</html>
+
+
+
+ <head>
+  <script type="application/javascript">
+
+
+ 
+  function fixo() { ///desenhos fixos antes do ok
+      var canvas = document.getElementById("canvas");
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+
+
+
+        ctx.beginPath();  ///circulo do calculo
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1
+        var x = 60
+        var y = 60
+        var radius = 50
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///linha eixo x
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(0,350);
+        ctx.lineTo(950,350);
+        ctx.stroke();
+
+
+        ctx.beginPath();  ///linha eixo y
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(50,120);
+        ctx.lineTo(50,700);
+        ctx.stroke();
+
+        ctx.beginPath();  ///pi
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(207,345);
+        ctx.lineTo(207,355);
+        ctx.stroke();
+
+        ctx.beginPath();  ///2pi
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(364,345);
+        ctx.lineTo(364,355);
+        ctx.stroke();
+
+        ctx.beginPath();  ///3pi
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(521,345);
+        ctx.lineTo(521,355);
+        ctx.stroke();
+
+        ctx.beginPath();  ///4pi
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(678,345);
+        ctx.lineTo(678,355);
+        ctx.stroke();
+
+        ctx.beginPath();  ///5pi
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(835,345);
+        ctx.lineTo(835,355);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.font = "18px serif"
+        ctx.fillText("π",202,369)
+
+        ctx.beginPath()
+        ctx.font = "18px serif"
+        ctx.fillText("2π",353,369)
+
+        ctx.beginPath()
+        ctx.font = "18px serif"
+        ctx.fillText("3π",510,369)
+
+        ctx.beginPath()
+        ctx.font = "18px serif"
+        ctx.fillText("4π",667,369)
+
+        ctx.beginPath()
+        ctx.font = "18px serif"
+        ctx.fillText("5π",824,369)
+
+        ctx.beginPath();  ///linha sin circ trig
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(60,10);
+        ctx.lineTo(60,110);
+        ctx.stroke();
+
+        ctx.beginPath();  ///linha cos circ trig
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(10,60);
+        ctx.lineTo(110,60);
+        ctx.stroke();
+
+        
+      }
+    }
+
+
+var ang = 0   ///angulo
+
+var xgrafang = 50   ///posição onde começa a ser desenhado o gráfico
+
+var tictac;
+
+    function animar() {
+        ang = 0
+        xgrafang = 50
+
+        
+
+        tictac = setInterval("animacao()",20);
+    }
+
+    function animacao() {
+
+        ang = ang - 0.02   ///variação do angulo negativa para termos sentido anti-horário
+
+        xgrafang = xgrafang + 1   ///pontos no gráfico são postos de 1 pixel em 1 pixel
+
+
+        draw()
+           }
+
+
+
+
+
+
+
+    function draw() {
+      var canvas = document.getElementById("canvas");
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+        
+        ctx.clearRect(0,0,150,150)   ///apaga um quadrado sobre o circ trig para desenhá-lo de novo
+        
+        ctx.save()
+
+        var singraf = document.getElementById("sin").checked   ///variaveis para capturar valores dos checkbox
+        var cosgraf = document.getElementById("cos").checked
+        var tggraf = document.getElementById("tg").checked
+        var cotggraf = document.getElementById("cotg").checked
+        var secgraf = document.getElementById("sec").checked
+        var cosecgraf = document.getElementById("cosec").checked
+        var issograf = document.getElementById("isso").checked
+
+
+        ctx.beginPath();  ///circulo do calculo
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1
+        var x = 60
+        var y = 60
+        var radius = 50
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///linha sin circ trig
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(60,10);
+        ctx.lineTo(60,110);
+        ctx.stroke();
+
+        ctx.beginPath();  ///linha cos circ trig
+        ctx.strokeStyle = 'black';
+        ctx.moveTo(10,60);
+        ctx.lineTo(110,60);
+        ctx.stroke();
+
+        ctx.beginPath();  ///cosseno circulo
+        ctx.lineWidth = 3
+        ctx.strokeStyle = 'green';
+        ctx.moveTo(60,60);
+        ctx.lineTo(60+50*Math.cos(ang),60);
+        ctx.stroke();
+
+        ctx.beginPath();  ///sin circulo
+        ctx.strokeStyle = 'blue';
+        ctx.moveTo(60,60);
+        ctx.lineTo(60,60+50*Math.sin(ang));
+        ctx.stroke();
+
+        
+        if (issograf == true) {
+        ctx.beginPath();  ///indica distancia em linha reta
+        ctx.lineWidth = 3
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(110,60);
+        ctx.lineTo(60+50*Math.cos(ang),60+50*Math.sin(ang));
+        ctx.stroke(); }
+
+        ctx.beginPath();  ///valor de linha reta no grafico
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 2*100*Math.abs(Math.sin(ang/2))
+        if (issograf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///valor sin no grafico
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100*Math.sin(-ang)
+        if (singraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke() 
+       
+        ctx.beginPath();  ///valor tg no grafico
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100*Math.tan(-ang)
+        if (tggraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///valor sec no grafico
+        ctx.strokeStyle = 'orange';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100/Math.cos(ang)
+        if (secgraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///valor cosec no grafico
+        ctx.strokeStyle = 'purple';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100/Math.sin(-ang)
+        if (cosecgraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///valor cotg no grafico
+        ctx.strokeStyle = 'brown';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100*Math.cos(ang)/Math.sin(-ang)
+        if (cotggraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///valor cos no grafico
+        ctx.strokeStyle = 'green';
+        ctx.lineWidth = 1
+        var x = xgrafang
+        var y = 350 - 100*Math.cos(ang)
+        if (cosgraf == true) {var radius = 1} else {var radius = 0}
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///ponto final
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 3
+        var x = 60+50*Math.cos(ang)
+        var y = 60+50*Math.sin(ang)
+        var radius = 2
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        ctx.beginPath();  ///ponto final
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 3
+        var x = 110
+        var y = 60
+        var radius = 2
+        var startAngle = 0
+        var endAngle = 2*Math.PI
+
+        ctx.arc(x, y, radius, startAngle, endAngle)
+        ctx.stroke()
+
+        
+        ctx.restore()
+
+
+      }
+    }
+
+
+
+
+    
+
+
+
+  </script>
+ </head>
+ <body onload="fixo();">
+   <canvas id="canvas" width="1000" height="700"></canvas>
+<br>
+
+<input type="checkbox" id="sin" name="sin" ><label for="sin">sin</label>
+         
+<input type="checkbox" id="cos" name="cos"><label for="cos">cos</label>
+         
+<input type="checkbox" id="tg" name="tg"><label for="tg">tg</label>
+         
+<input type="checkbox" id="cotg" name="cotg"><label for="cotg">cotg</label>
+         
+<input type="checkbox" id="sec" name="sec"><label for="sec">sec</label>
+         
+<input type="checkbox" id="cosec" name="cosec"><label for="cosec">cossec</label>
+         
+<input type="checkbox" id="isso" name="isso"><label for="isso">dist entre 0 e X</label>
+         
+
+<input type="button" value="ok" onClick="animar()">
+<br>
+
+
+ </body>
+
